@@ -1,0 +1,43 @@
+
+class Candidate:
+    def _init_(self, name, email, years_of_experience, skills):
+        self.name = name
+        self.email = email
+        self.years_of_experience = years_of_experience
+        self.skills = skills
+
+    def display_candidate_info(self):
+        print(f"Name: {self.name}")
+        print(f"Email: {self.email}")
+        print(f"Years of Experience: {self.years_of_experience}")
+        print(f"Skills: {', '.join(self.skills)}")
+
+def evaluate_candidate(candidate, required_skills, min_experience):
+    has_required_skills = all(skill in candidate.skills for skill in required_skills)
+    meets_experience_requirement = candidate.years_of_experience >= min_experience
+
+    if has_required_skills and meets_experience_requirement:
+        return "Qualified"
+    elif has_required_skills:
+        return "Consider for entry-level position"
+    else:
+        return "Not Qualified"
+
+candidates = []
+
+def add_candidate(name, email, years_of_experience, skills):
+    candidate = Candidate(name, email, years_of_experience, skills)
+    candidates.append(candidate)
+
+if __name__ == "_main_":
+    add_candidate("Alice Johnson", "alice@example.com", 5, ["Python", "Data Analysis", "Machine Learning"])
+    add_candidate("Bob Smith", "bob@example.com", 2, ["JavaScript", "HTML", "CSS"])
+    add_candidate("Carol White", "carol@example.com", 8, ["Python", "Project Management", "Machine Learning"])
+
+    required_skills = ["Python", "Machine Learning"]
+    min_experience = 3
+
+    for candidate in candidates:
+        candidate.display_candidate_info()
+        result = evaluate_candidate(candidate, required_skills, min_experience)
+        print(f"Evaluation Result: {result}\n")
